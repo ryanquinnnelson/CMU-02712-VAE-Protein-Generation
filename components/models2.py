@@ -56,7 +56,7 @@ class Decoder(nn.Module):
         x = self.mlp(x)
         x = self.linear(x)
         x = self.sigmoid(x)
-        return x
+        return x.reshape((-1, 1, 28, 28)) # temp for example
 
 
 class Encoder(nn.Module):
@@ -69,11 +69,24 @@ class Encoder(nn.Module):
         self.softplus = nn.Softplus()
 
     def forward(self, x):
+        x = torch.flatten(x, start_dim=1)
         x = self.mlp(x)
         mu = self.linear1(x)
-        sigma_squared = self.softplus(self.linear2(x))
+        log_var = self.softplus(self.linear2(x))
+        sigma = torch.exp(log_var / 2.0)  # alt model doesn't divide by 2
 
-        return mu, sigma_squared
+        # sample from normal distribution
+        # mu.shape should equal (batch_size, output_size)
+        # print(mu.shape)
+        eps = torch.randn(mu.shape)  # ~N(0,1)
+        z = mu + sigma * eps
+
+        # move to gpu if necessary
+        # print(f'next(self.parameters()).device:{next(self.parameters()).device}')
+        if 'cuda' in str(next(self.parameters()).device):
+            z = z.to(device=torch.device('cuda'))
+
+        return z, mu, sigma
 
 
 class VariationalAutoencoder(nn.Module):
@@ -85,9 +98,9 @@ class VariationalAutoencoder(nn.Module):
         reverse_hidden_sizes.reverse()
 
         self.Encoder = Encoder(input_size, hidden_sizes[:-1], hidden_sizes[-1])
-        self.Decoder = Decoder(reverse_hidden_sizes[0], reverse_hidden_sizes[1:],input_size )
+        self.Decoder = Decoder(reverse_hidden_sizes[0], reverse_hidden_sizes[1:], input_size)
 
-    def forward(self,x):
-        x = self.Encoder(x)
-        x = self.Decoder(x)
-        return x
+    def forward(self, x):
+        z, mu, sigma = self.Encoder(x)
+        x = self.Decoder(z)
+        return x, mu, sigma

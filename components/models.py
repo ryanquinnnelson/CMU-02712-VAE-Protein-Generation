@@ -23,6 +23,7 @@ class Encoder(nn.Module):
         x = self.linear2(x)
         return x
 
+
 class Decoder(nn.Module):
     def __init__(self, latent_dims):
         super(Decoder, self).__init__()
