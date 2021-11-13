@@ -8,22 +8,21 @@ Based on https://github.com/psipred/protein-vae/blob/master/fold_gen/grammar_VAE
 
 import torch
 import torch.nn as nn
-import numpy as np
-import pandas as pd
 
 
+# TODO: layer initializations
 class LinearBlock(nn.Module):
 
     def __init__(self, input_dim, output_dim):
         super(LinearBlock, self).__init__()
 
         self.linear = nn.Linear(input_dim, output_dim)
-        self.bn = nn.BatchNorm1d(output_dim)
+        # self.bn = nn.BatchNorm1d(output_dim)
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x):
         x = self.linear(x)
-        x = self.bn(x)
+        # x = self.bn(x)
         x = self.relu(x)
         return x
 
@@ -56,7 +55,8 @@ class Decoder(nn.Module):
         x = self.mlp(x)
         x = self.linear(x)
         x = self.sigmoid(x)
-        return x.reshape((-1, 1, 28, 28)) # temp for example
+
+        return x.reshape((-1, 1, 28, 28))  # temp for example
 
 
 class Encoder(nn.Module):
