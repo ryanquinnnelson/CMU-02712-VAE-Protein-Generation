@@ -11,7 +11,7 @@ import sys
 os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # better error tracking from gpu
 
 # reusable local modules
-from octopus.helper import _to_string_list, _to_float_dict, _to_int_list
+from octopus.helper import _to_string_list, _to_float_dict, _to_int_list, _to_mixed_dict
 from octopus.connectors.wandbconnector import WandbConnector
 from octopus.fixedhandlers.checkpointhandler import CheckpointHandler
 from octopus.fixedhandlers.devicehandler import DeviceHandler
@@ -282,7 +282,8 @@ def initialize_fixed_handlers(config, wandbconnector):
                                           config['checkpoint'].getboolean('load_from_checkpoint'))
 
     # criterion
-    criterionhandler = CriterionHandler(config['hyperparameters']['criterion_type'])
+    criterionhandler = CriterionHandler(config['hyperparameters']['criterion_type'],
+                                        _to_mixed_dict(config['hyperparameters']['criterion_kwargs']))
 
     # device
     devicehandler = DeviceHandler()

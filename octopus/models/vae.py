@@ -104,8 +104,8 @@ class Encoder(nn.Module):
         x = torch.flatten(x, start_dim=1)  # may be unnecessary
         x = self.mlp(x)
         mu = self.linear1(x)
-        log_var = self.softplus(self.linear2(x))  # alt model doesn't use softplus
-        sigma = torch.exp(log_var / 2.0)  # alt model doesn't take sqrt of exp(log_var)
+        log_var = self.softplus(self.linear2(x))
+        sigma = torch.exp(log_var / 2.0)  # See README.md for why we consider this to be std dev
 
         # sample from normal distribution
         eps = torch.randn(mu.shape)  # ~N(0,1) in the correct shape to multiply by sigma and add to mu

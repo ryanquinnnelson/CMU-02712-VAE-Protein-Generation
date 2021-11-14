@@ -142,3 +142,39 @@ def _to_float_dict(s):
         d[key] = val
 
     return d
+
+
+def _to_mixed_dict(s):
+    d = dict()
+
+    pairs = s.split(',')
+    for p in pairs:
+        key, val = p.strip().split('=')
+
+        # try converting the value to an int
+        try:
+            val = int(val)
+            d[key] = val
+            continue  # skip additional attempts to parse the type
+        except ValueError:
+            pass  # leave as string
+
+        # try converting the value to a float
+        try:
+            val = float(val)
+            d[key] = val
+            continue  # skip additional attempts to parse the type
+        except ValueError:
+            pass  # leave as string
+
+        # try converting the value to a boolean
+        try:
+            val = bool(val)
+            d[key] = val
+            continue  # skip additional attempts to parse the type
+        except ValueError:
+            pass  # leave as string
+
+        d[key] = val
+
+    return d

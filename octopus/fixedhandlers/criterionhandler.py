@@ -15,7 +15,7 @@ class CriterionHandler:
     Defines an object to handle criterion initialization.
     """
 
-    def __init__(self, criterion_type):
+    def __init__(self, criterion_type, criterion_dict):
         """
         Initialize CriterionHandler.
 
@@ -24,6 +24,7 @@ class CriterionHandler:
         """
         logging.info('Initializing criterion handler...')
         self.criterion_type = criterion_type
+        self.criterion_dict = criterion_dict
 
     def get_loss_function(self):
         """
@@ -40,7 +41,7 @@ class CriterionHandler:
             criterion = nn.CrossEntropyLoss()
 
         elif self.criterion_type == 'CustomLoss1':
-            criterion = crit.CustomCriterion1()
+            criterion = crit.CustomCriterion1(**self.criterion_dict)
 
         logging.info(f'Criterion is set:\n{criterion}')
         return criterion
