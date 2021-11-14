@@ -1,3 +1,8 @@
+"""
+Custom loss functions that combine multiple types of loss.
+"""
+__author__ = 'ryanquinnnelson'
+
 import logging
 
 import torch

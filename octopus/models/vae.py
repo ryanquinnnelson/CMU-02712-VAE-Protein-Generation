@@ -1,10 +1,9 @@
 """
 VAE Model
 
-Based on https://github.com/psipred/protein-vae/
-
-
+Based on https://github.com/psipred/protein-vae/ with additional inspiration from https://avandekleut.github.io/vae/
 """
+__author__ = 'ryanquinnnelson'
 
 from collections import OrderedDict
 
