@@ -51,8 +51,9 @@ batch_size=128
 [model]
 model_type=PaperVAE
 input_size=784
-hidden_sizes=512,256,128,16
-batch_normalization=True
+hidden_sizes=512,256,128
+latent_dim=16
+batch_normalization=False
 dropout=0.0
 
 

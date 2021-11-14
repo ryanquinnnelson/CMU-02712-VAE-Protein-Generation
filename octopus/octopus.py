@@ -357,9 +357,9 @@ def initialize_variable_handlers(config):
         modelhandler = VaeHandler(config['model']['model_type'],
                                   config['model'].getint('input_size'),
                                   _to_int_list(config['model']['hidden_sizes']),
+                                  config['model'].getint('latent_dim'),
                                   config['model'].getboolean('batch_normalization'),
-                                  config['model'].getfloat('dropout')
-                                  )
+                                  config['model'].getfloat('dropout'))
 
     else:
         modelhandler = None
