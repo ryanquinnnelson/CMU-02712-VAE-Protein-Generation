@@ -35,7 +35,7 @@ class NumericalDatasetHandler:
         # TODO: Replace after MNIST
         dataset = torchvision.datasets.MNIST(self.train_data,
                                              transform=torchvision.transforms.ToTensor(),
-                                             download=False)
+                                             download=False) # change to true if need to download for onto EC2
 
         return dataset
 
