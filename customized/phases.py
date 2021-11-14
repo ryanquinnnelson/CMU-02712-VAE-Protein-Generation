@@ -64,7 +64,8 @@ class Training:
             out, mu, sigma = model.forward(inputs)
 
             # calculate loss
-            loss = self.criterion.calculate_loss(inputs, out, mu, sigma)
+            # TODO: stop reshaping once no longer doing MNIST
+            loss = self.criterion.calculate_loss(inputs, out.reshape((-1, 1, 28, 28)), mu, sigma)
             train_loss += loss.item()
 
             # delete mini-batch data from device
@@ -124,6 +125,7 @@ class Evaluation:
             model.eval()
 
             # process mini-batches
+            # TODO: Remove targets when change to protein dataset
             for i, (inputs, targets) in enumerate(self.val_loader):
                 # prep
                 inputs, targets = self.devicehandler.move_data_to_device(model, inputs, None)
@@ -132,12 +134,13 @@ class Evaluation:
                 out, mu, sigma = model.forward(inputs)
 
                 # calculate loss
-                loss = self.criterion.calculate_loss(inputs, out, mu, sigma)
+                # TODO: stop reshaping once no longer doing MNIST
+                loss = self.criterion.calculate_loss(inputs, out.reshape((-1, 1, 28, 28)), mu, sigma)
                 val_loss += loss.item()
 
                 # calculate accuracy
                 # TODO: fix once stop using MNIST
-                num_hits += 1 #accuracy_score(inputs, out, normalize=False)
+                num_hits += 1  # accuracy_score(inputs, out, normalize=False)
 
                 # delete mini-batch from device
                 del inputs

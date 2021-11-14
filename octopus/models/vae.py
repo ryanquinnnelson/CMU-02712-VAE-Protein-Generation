@@ -1,7 +1,7 @@
 """
 VAE Model
 
-Based on https://github.com/psipred/protein-vae/blob/master/fold_gen/grammar_VAE_pytorch.py
+Based on https://github.com/psipred/protein-vae/
 
 
 """
@@ -12,7 +12,6 @@ import torch
 import torch.nn as nn
 
 
-# TODO: layer initializations
 class LinearBlock(nn.Module):
 
     def __init__(self, input_dim, output_dim, batch_normalization, dropout_rate):
@@ -105,11 +104,11 @@ class Encoder(nn.Module):
         x = torch.flatten(x, start_dim=1)  # may be unnecessary
         x = self.mlp(x)
         mu = self.linear1(x)
-        log_var = self.softplus(self.linear2(x))  # alt model doesn't use softplus first, check if this is log_var
-        sigma = torch.exp(log_var / 2.0)  # alt model doesn't divide by 2
+        log_var = self.softplus(self.linear2(x))  # alt model doesn't use softplus
+        sigma = torch.exp(log_var / 2.0)  # alt model doesn't take sqrt of exp(log_var)
 
         # sample from normal distribution
-        eps = torch.randn(mu.shape)  # ~N(0,1)
+        eps = torch.randn(mu.shape)  # ~N(0,1) in the correct shape to multiply by sigma and add to mu
         z = mu + sigma * eps
 
         # move to gpu if necessary
