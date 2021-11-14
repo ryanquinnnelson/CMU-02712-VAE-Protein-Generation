@@ -42,5 +42,5 @@ class CriterionHandler:
         elif self.criterion_type == 'CustomLoss1':
             criterion = crit.CustomCriterion1()
 
-        logging.info(f'Criterion is set:{criterion}.')
+        logging.info(f'Criterion is set:\n{criterion}')
         return criterion

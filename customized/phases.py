@@ -7,6 +7,7 @@ import logging
 import warnings
 
 import torch
+from sklearn.metrics import accuracy_score
 
 warnings.filterwarnings('ignore')
 
@@ -51,7 +52,8 @@ class Training:
         model.train()
 
         # process mini-batches
-        for i, inputs in enumerate(self.train_loader):
+        # TODO: Remove targets when change to protein dataset
+        for i, (inputs, targets) in enumerate(self.train_loader):
             # prep
             optimizer.zero_grad()
             torch.cuda.empty_cache()
@@ -122,7 +124,7 @@ class Evaluation:
             model.eval()
 
             # process mini-batches
-            for i, inputs in enumerate(self.val_loader):
+            for i, (inputs, targets) in enumerate(self.val_loader):
                 # prep
                 inputs, targets = self.devicehandler.move_data_to_device(model, inputs, None)
 
@@ -134,7 +136,8 @@ class Evaluation:
                 val_loss += loss.item()
 
                 # calculate accuracy
-                val_acc = 0
+                # TODO: fix once stop using MNIST
+                num_hits += 1 #accuracy_score(inputs, out, normalize=False)
 
                 # delete mini-batch from device
                 del inputs
