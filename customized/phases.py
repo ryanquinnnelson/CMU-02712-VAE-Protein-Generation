@@ -65,7 +65,7 @@ class Training:
 
             # calculate loss
             # TODO: stop reshaping once no longer doing MNIST
-            loss = self.criterion.calculate_loss(inputs, out.reshape((-1, 1, 28, 28)), mu, sigma, epoch)
+            loss = self.criterion.calculate_loss(inputs, out.reshape((-1, 1, 28, 28)), mu, sigma)
             train_loss += loss.item()
 
             # delete mini-batch data from device
@@ -79,6 +79,9 @@ class Training:
 
         # calculate average loss across all mini-batches
         train_loss /= len(self.train_loader)
+
+        # update burn in after training epoch
+        self.criterion.update_kl_weight(epoch)
 
         return train_loss
 
@@ -135,7 +138,7 @@ class Evaluation:
 
                 # calculate loss
                 # TODO: stop reshaping once no longer doing MNIST
-                loss = self.criterion.calculate_loss(inputs, out.reshape((-1, 1, 28, 28)), mu, sigma, epoch)
+                loss = self.criterion.calculate_loss(inputs, out.reshape((-1, 1, 28, 28)), mu, sigma)
                 val_loss += loss.item()
 
                 # calculate accuracy

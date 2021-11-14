@@ -26,6 +26,7 @@ class CriterionHandler:
         self.criterion_type = criterion_type
         self.criterion_dict = criterion_dict
 
+
     def get_loss_function(self):
         """
         Obtain the desired loss function.
@@ -42,6 +43,9 @@ class CriterionHandler:
 
         elif self.criterion_type == 'CustomLoss1':
             criterion = crit.CustomCriterion1(**self.criterion_dict)
+
+        elif self.criterion_type == 'CustomLoss2':
+            criterion = crit.CustomCriterion2(**self.criterion_dict)
 
         logging.info(f'Criterion is set:\n{criterion}')
         return criterion

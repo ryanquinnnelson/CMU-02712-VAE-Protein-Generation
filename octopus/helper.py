@@ -169,8 +169,10 @@ def _to_mixed_dict(s):
 
         # try converting the value to a boolean
         try:
-            val = bool(val)
-            d[key] = val
+            if val == 'True':
+                d[key] = True
+            elif val == 'False':
+                d[key] = False
             continue  # skip additional attempts to parse the type
         except ValueError:
             pass  # leave as string

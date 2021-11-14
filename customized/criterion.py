@@ -1,3 +1,6 @@
+
+import logging
+
 import torch
 import torch.nn as nn
 
@@ -27,7 +30,8 @@ class CustomCriterion1:
         if epoch >= self.burn_in_start and self.kl_weight <= (1.0 - self.delta_burn_in):
             self.kl_weight += self.delta_burn_in
 
-    def calculate_loss(self, x, x_hat, mu, sigma, epoch):
+
+    def calculate_loss(self, x, x_hat, mu, sigma):
         # KL divergence between p(z|x) and N(0,1)
         # penalizes p(z|x) from being too far from standard normal
         kl_loss = (sigma ** 2 + mu ** 2 - torch.log(sigma) - 0.5).sum()
@@ -37,20 +41,18 @@ class CustomCriterion1:
         # combined loss
         loss = recon_loss + (kl_loss * self.kl_weight)
 
-        # update burn in
-        self.update_kl_weight(epoch)
-
         return loss
 
     def __str__(self):
-        e1 = f'CustomCriterion1: \n\tloss=(kl + mse)'
+        e1 = f'CustomCriterion1: \n\tloss=(kl + se)'
         e2 = f'\n\tkl = (sigma ** 2 + mu ** 2 - log(sigma) - 0.5)'
         e3 = f'\n\tmse = ((x - x_hat ** 2)'
         e4 = f'\n\tuse_burn_in:{self.use_burn_in}'
         e5 = f'\n\tdelta_burn_in:{self.delta_burn_in}'
         e6 = f'\n\tburn_in_start:{self.burn_in_start}'
+        e7 = f'\n\tkl_weight:{self.kl_weight}'
 
-        return e1 + e2 + e3 + e4 + e5 + e6
+        return e1 + e2 + e3 + e4 + e5 + e6 + e7
 
 
 class CustomCriterion2:
@@ -78,7 +80,7 @@ class CustomCriterion2:
         if epoch >= self.burn_in_start and self.kl_weight <= (1.0 - self.delta_burn_in):
             self.kl_weight += self.delta_burn_in
 
-    def calculate_loss(self, x, x_hat, mu, sigma, epoch):
+    def calculate_loss(self, x, x_hat, mu, sigma):
 
         # KL divergence between p(z|x) and N(0,1)
         # penalizes p(z|x) from being too far from standard normal
@@ -89,7 +91,15 @@ class CustomCriterion2:
         # combined loss
         loss = recon_loss + (kl_loss * self.kl_weight)
 
-        # update burn in
-        self.update_kl_weight(epoch)
-
         return loss
+
+    def __str__(self):
+        e1 = f'CustomCriterion2: \n\tloss=(kl + bce)'
+        e2 = f'\n\tkl = (0.5 * sigma ** 2 + 0.5 * mu ** 2 - torch.log(sigma) - 0.5)'
+        e3 = f'\n\tmse = binary_cross_entropy(x_hat, x)'
+        e4 = f'\n\tuse_burn_in:{self.use_burn_in}'
+        e5 = f'\n\tdelta_burn_in:{self.delta_burn_in}'
+        e6 = f'\n\tburn_in_start:{self.burn_in_start}'
+        e7 = f'\n\tkl_weight:{self.kl_weight}'
+
+        return e1 + e2 + e3 + e4 + e5 + e6 + e7
