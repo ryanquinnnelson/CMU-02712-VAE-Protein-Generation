@@ -1,4 +1,3 @@
-
 import logging
 
 import torch
@@ -29,7 +28,6 @@ class CustomCriterion1:
         #   - burn in is not already at 1.0
         if epoch >= self.burn_in_start and self.kl_weight <= (1.0 - self.delta_burn_in):
             self.kl_weight += self.delta_burn_in
-
 
     def calculate_loss(self, x, x_hat, mu, sigma):
         # KL divergence between p(z|x) and N(0,1)

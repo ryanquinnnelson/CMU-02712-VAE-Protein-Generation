@@ -32,7 +32,7 @@ class NumericalDatasetHandler:
         # initialize dataset
         # dataset = self.train_class(data)
 
-        # TODO: Replace after testing
+        # TODO: Replace after MNIST
         dataset = torchvision.datasets.MNIST(self.train_data,
                                              transform=torchvision.transforms.ToTensor(),
                                              download=False)
@@ -52,7 +52,7 @@ class NumericalDatasetHandler:
         # initialize dataset
         # dataset = self.val_class(data)
 
-        # TODO: Replace after testing
+        # TODO: Replace after MNIST
         dataset = torchvision.datasets.MNIST(self.val_data,
                                              transform=torchvision.transforms.ToTensor(),
                                              download=False)

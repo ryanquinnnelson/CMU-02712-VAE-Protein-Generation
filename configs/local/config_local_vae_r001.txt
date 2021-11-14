@@ -66,9 +66,9 @@ checkpoint_file =  None
 
 
 [hyperparameters]
-num_epochs = 2
+num_epochs = 30
 criterion_type=CustomLoss1
-criterion_kwargs=use_burn_in=True,delta_burn_in=0.003,burn_in_start=0
+criterion_kwargs=use_burn_in=False,delta_burn_in=0.003,burn_in_start=0
 optimizer_type=Adam
 optimizer_kwargs=lr=0.002,weight_decay=0.000005
 scheduler_type=ReduceLROnPlateau
