@@ -4,6 +4,7 @@ import torch.nn as nn
 
 class CustomCriterion1:
     """
+    Uses Squared Error + KL divergence
     Loss derived from https://avandekleut.github.io/vae/
     """
 
@@ -29,13 +30,12 @@ class CustomCriterion1:
     def calculate_loss(self, x, x_hat, mu, sigma, epoch):
         # KL divergence between p(z|x) and N(0,1)
         # penalizes p(z|x) from being too far from standard normal
-        kl = (sigma ** 2 + mu ** 2 - torch.log(sigma) - 0.5).sum()
+        kl_loss = (sigma ** 2 + mu ** 2 - torch.log(sigma) - 0.5).sum()
 
-        # reconstruction loss
-        square_err = ((x - x_hat) ** 2).sum()
+        recon_loss = ((x - x_hat) ** 2).sum()
 
         # combined loss
-        loss = square_err + (kl * self.kl_weight)
+        loss = recon_loss + (kl_loss * self.kl_weight)
 
         # update burn in
         self.update_kl_weight(epoch)
@@ -53,20 +53,43 @@ class CustomCriterion1:
         return e1 + e2 + e3 + e4 + e5 + e6
 
 
-# class CustomCriterion2:
-#
-#     def __init__(self):
-#         # self.burn_in = 0
-#         #
-#         # if its > 300 and burn_in_counter < 1.0:
-#         #     burn_in_counter += 0.003
-#         pass
-#
-#     def calculate_loss(self, x, x_hat, mu, sigma, epoch):
-#         recon_loss = nn.binary_cross_entropy(x_hat, x,
-#                                              size_average=False)  # by setting to false it sums instead of avg.
-#         kl_loss = 0.5 * torch.sum(torch.exp(z_var) + mu ** 2 - 1. - z_var)
-#         # kl_loss = kl_loss*burn_in_counter
-#         loss = recon_loss + kl_loss
-#
-#         return loss
+class CustomCriterion2:
+    """
+    Uses binary cross entropy + KL divergence
+    Loss derived from https://github.com/psipred/protein-vae/
+    """
+
+    def __init__(self, use_burn_in, delta_burn_in, burn_in_start):
+        self.use_burn_in = use_burn_in
+        self.delta_burn_in = delta_burn_in
+        self.burn_in_start = burn_in_start
+
+        # if KL loss should not use burn_in, set burn_in to 1.0 so value is never updated
+        if use_burn_in:
+            self.kl_weight = 0.0
+        else:
+            self.kl_weight = 1.0
+
+    def update_kl_weight(self, epoch):
+
+        # increment kl_weight if
+        #   - epoch is greater than starting point for burn in
+        #   - burn in is not already at 1.0
+        if epoch >= self.burn_in_start and self.kl_weight <= (1.0 - self.delta_burn_in):
+            self.kl_weight += self.delta_burn_in
+
+    def calculate_loss(self, x, x_hat, mu, sigma, epoch):
+
+        # KL divergence between p(z|x) and N(0,1)
+        # penalizes p(z|x) from being too far from standard normal
+        kl_loss = (0.5 * sigma ** 2 + 0.5 * mu ** 2 - torch.log(sigma) - 0.5).sum()
+
+        recon_loss = nn.functional.binary_cross_entropy(x_hat, x, size_average=False)  # sums instead of averaging
+
+        # combined loss
+        loss = recon_loss + (kl_loss * self.kl_weight)
+
+        # update burn in
+        self.update_kl_weight(epoch)
+
+        return loss
