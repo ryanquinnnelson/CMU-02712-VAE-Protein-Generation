@@ -42,7 +42,6 @@ class MLP(nn.Module):
         return x
 
 
-# TODO: understand why authors added 1273 to input_size and subtracted 1273 from output_size for Decoder
 class Decoder(nn.Module):
     def __init__(self, input_size, hidden_sizes, output_size):
         super(Decoder, self).__init__()
@@ -56,7 +55,7 @@ class Decoder(nn.Module):
         x = self.linear(x)
         x = self.sigmoid(x)
 
-        return x.reshape((-1, 1, 28, 28))  # temp for example
+        return x
 
 
 class Encoder(nn.Module):
@@ -76,22 +75,19 @@ class Encoder(nn.Module):
         sigma = torch.exp(log_var / 2.0)  # alt model doesn't divide by 2
 
         # sample from normal distribution
-        # mu.shape should equal (batch_size, output_size)
-        # print(mu.shape)
         eps = torch.randn(mu.shape)  # ~N(0,1)
         z = mu + sigma * eps
 
         # move to gpu if necessary
-        # print(f'next(self.parameters()).device:{next(self.parameters()).device}')
         if 'cuda' in str(next(self.parameters()).device):
             z = z.to(device=torch.device('cuda'))
 
         return z, mu, sigma
 
 
-class VariationalAutoencoder(nn.Module):
-    def __init__(self, input_size, hidden_sizes):
-        super(VariationalAutoencoder, self).__init__()
+class PaperVAE(nn.Module):
+    def __init__(self, input_size, hidden_sizes, batch_normalization, dropout):
+        super(PaperVAE, self).__init__()
 
         # Decoder layers are the reverse of the Encoder
         reverse_hidden_sizes = hidden_sizes.copy()

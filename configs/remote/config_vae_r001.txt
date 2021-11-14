@@ -1,0 +1,110 @@
+[DEFAULT]
+run_name = CnnLSTM-Run-29
+
+
+
+
+[debug]
+debug_path = /home/ubuntu/
+
+
+
+
+[kaggle]
+download_from_kaggle = True
+kaggle_dir = /home/ubuntu/.kaggle
+content_dir = /home/ubuntu/content/
+token_file = /home/ubuntu/kaggle.json
+competition = 11785-fall2021-hw3p2
+delete_zipfiles_after_unzipping = True
+
+
+[pip]
+packages=--upgrade wandb==0.10.8,kaggle,Levenshtein,ctcdecode
+
+
+
+[wandb]
+wandb_dir = /home/ubuntu/
+entity = ryanquinnnelson
+project = CMU-11685-HW3P2-octopus
+notes = RNN Utterance to Phoneme mapping
+tags = octopus,LTSM,CNN
+
+
+
+
+[stats]
+comparison_metric=avg_distance
+comparison_best_is_max=False
+comparison_patience=30
+val_metric_name=avg_distance
+
+
+
+
+[data]
+data_type = numerical
+data_dir = /home/ubuntu/content/competitions/11785-fall2021-hw3p2/HW3P2_Data
+train_data=/home/ubuntu/content/competitions/11785-fall2021-hw3p2/HW3P2_Data/train.npy
+train_labels=/home/ubuntu/content/competitions/11785-fall2021-hw3p2/HW3P2_Data/train_labels.npy
+val_data=/home/ubuntu/content/competitions/11785-fall2021-hw3p2/HW3P2_Data/dev.npy
+val_labels=/home/ubuntu/content/competitions/11785-fall2021-hw3p2/HW3P2_Data/dev_labels.npy
+test_data=/home/ubuntu/content/competitions/11785-fall2021-hw3p2/HW3P2_Data/test.npy
+
+
+
+
+[output]
+output_dir = /home/ubuntu/output
+
+
+[CTCDecode]
+model_path=None
+alpha=0
+beta=0
+cutoff_top_n=40
+cutoff_prob=1.0
+beam_width=1
+blank_id=0
+log_probs_input=True
+
+
+
+[dataloader]
+num_workers=8
+pin_memory=True
+batch_size=64
+
+
+
+[model]
+model_type=CnnLSTM
+conv_kwargs=1.in_channels=40,1.out_channels=128,1.kernel_size=3,1.stride=1,1.padding=1,1.dilation=1,2.in_channels=128,2.out_channels=256,2.kernel_size=3,2.stride=1,2.padding=1,2.dilation=1
+lstm_input_size=256
+hidden_size=256
+num_layers=5
+bidirectional=True
+dropout=0.2
+lin1_output_size=42
+lin1_dropout=0.0
+output_size=42
+
+
+
+[checkpoint]
+checkpoint_dir = /data/checkpoints
+delete_existing_checkpoints = False
+load_from_checkpoint=False
+checkpoint_file = None
+
+
+
+[hyperparameters]
+num_epochs = 41
+criterion_type=CTCLoss
+optimizer_type=Adam
+optimizer_kwargs=lr=0.002,weight_decay=0.000005
+scheduler_type=ReduceLROnPlateau
+scheduler_kwargs=factor=0.5,patience=3,mode=min,verbose=True
+scheduler_plateau_metric=val_loss
