@@ -23,6 +23,7 @@ def main():
 
         # run octopus
         octopus = Octopus(config, f)
+        octopus.install_packages()
         octopus.setup_environment()
         octopus.initialize_pipeline_components()
         octopus.run_pipeline()

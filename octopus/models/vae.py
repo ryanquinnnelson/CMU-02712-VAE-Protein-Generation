@@ -109,6 +109,11 @@ class Encoder(nn.Module):
 
         # sample from normal distribution
         eps = torch.randn(mu.shape)  # ~N(0,1) in the correct shape to multiply by sigma and add to mu
+
+        # move to gpu if necessary
+        if 'cuda' in str(next(self.parameters()).device):
+            eps = eps.to(device=torch.device('cuda'))
+
         z = mu + sigma * eps
 
         # move to gpu if necessary

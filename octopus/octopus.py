@@ -22,6 +22,7 @@ from octopus.fixedhandlers.statshandler import StatsHandler
 from octopus.fixedhandlers.phasehandler import PhaseHandler
 from octopus.fixedhandlers.dataloaderhandler import DataLoaderHandler
 from octopus.fixedhandlers.outputhandler import OutputHandler
+from octopus.fixedhandlers.piphandler import PipHandler
 from octopus.datasethandlers.numericaldatasethandler import NumericalDatasetHandler
 from octopus.modelhandlers.vaehandler import VaeHandler
 
@@ -276,7 +277,11 @@ def initialize_fixed_handlers(config, wandbconnector):
     """
 
     # pip
-    piphandler = None
+    if config.has_option('pip', 'packages'):
+        packages_list = _to_string_list(config['pip']['packages'])
+    else:
+        packages_list = None
+    piphandler = PipHandler(packages_list)
 
     # checkpoints
     checkpointhandler = CheckpointHandler(config['checkpoint']['checkpoint_dir'],
