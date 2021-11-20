@@ -30,9 +30,9 @@ val_metric_name=val_acc
 
 [data]
 data_type = numerical
-data_dir = /Users/ryanqnelson/Desktop/test/content/data
-train_data=/Users/ryanqnelson/Desktop/test/content/data
-val_data=/Users/ryanqnelson/Desktop/test/content/data
+data_dir = /Users/ryanqnelson/Desktop/test/content/data/proteins
+train_data=/Users/ryanqnelson/Desktop/test/content/data/proteins/encoded_protein_seq_train.npy
+val_data=/Users/ryanqnelson/Desktop/test/content/data/proteins/encoded_protein_seq_val.npy
 
 
 
@@ -50,9 +50,9 @@ batch_size=128
 
 [model]
 model_type=PaperVAE
-input_size=784
-hidden_sizes=512,256,128
-latent_dim=16
+input_size=13684
+hidden_sizes=8192,4096,2048
+latent_dim=1024
 batch_normalization=False
 dropout=0.0
 
@@ -66,11 +66,12 @@ checkpoint_file =  None
 
 
 [hyperparameters]
-num_epochs = 30
+num_proteins_to_generate = 100
+num_epochs = 1
 criterion_type=CustomLoss1
 criterion_kwargs=use_burn_in=False,delta_burn_in=0.003,burn_in_start=0
 optimizer_type=Adam
 optimizer_kwargs=lr=0.002,weight_decay=0.000005
 scheduler_type=ReduceLROnPlateau
-scheduler_kwargs=factor=0.5,patience=3,mode=min,verbose=True
+scheduler_kwargs=factor=0.5,patience=5,mode=min,verbose=True
 scheduler_plateau_metric=val_loss

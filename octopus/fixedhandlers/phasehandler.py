@@ -68,7 +68,7 @@ class PhaseHandler:
         # set which epoch to start from
         self.first_epoch = checkpoint['next_epoch']
 
-    def process_epochs(self, model, optimizer, scheduler, training, evaluation):
+    def process_epochs(self, model, optimizer, scheduler, training, evaluation, generation):
         """
         Run training phases for all epochs. Load model from checkpoint first if necessary and submit all previous
         stats to wandb.
@@ -92,6 +92,10 @@ class PhaseHandler:
 
             # validate
             val_loss, val_metric = evaluation.evaluate_model(epoch, self.num_epochs, model)
+
+            # generate
+            out = generation.evaluate_model(epoch, self.num_epochs, model)
+            self.outputhandler.save(out, epoch)
 
             # stats
             end = time.time()

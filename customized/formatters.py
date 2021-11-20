@@ -34,4 +34,4 @@ class OutputFormatter:
         # convert string array to dataframe
         df = pd.DataFrame(out).reset_index(drop=False)
 
-        return df
+        return out

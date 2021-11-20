@@ -1,12 +1,11 @@
 """
-All things related to datasets that require customized classes for Training, Validation, and Testing data.
+All things related to datasets that require customized classes for Training and Validation data.
 """
 __author__ = 'ryanquinnnelson'
 
 import logging
 
 import numpy as np
-import torchvision
 
 
 class NumericalDatasetHandler:
@@ -26,16 +25,11 @@ class NumericalDatasetHandler:
         """
 
         # load data
-        # data = np.load(self.train_data, allow_pickle=True)
-        # logging.info(f'Loaded {len(data)} training records.')
+        data = np.load(self.train_data, allow_pickle=True)
+        logging.info(f'Loaded {len(data)} training records.')
 
         # initialize dataset
-        # dataset = self.train_class(data)
-
-        # TODO: Replace after MNIST
-        dataset = torchvision.datasets.MNIST(self.train_data,
-                                             transform=torchvision.transforms.ToTensor(),
-                                             download=False) # change to true if need to download for onto EC2
+        dataset = self.train_class(data)
 
         return dataset
 
@@ -46,15 +40,10 @@ class NumericalDatasetHandler:
         """
 
         # load data
-        # data = np.load(self.val_data, allow_pickle=True)
-        # logging.info(f'Loaded {len(data)} validation records.')
+        data = np.load(self.val_data, allow_pickle=True)
+        logging.info(f'Loaded {len(data)} validation records.')
 
         # initialize dataset
-        # dataset = self.val_class(data)
-
-        # TODO: Replace after MNIST
-        dataset = torchvision.datasets.MNIST(self.val_data,
-                                             transform=torchvision.transforms.ToTensor(),
-                                             download=False)
+        dataset = self.val_class(data)
 
         return dataset

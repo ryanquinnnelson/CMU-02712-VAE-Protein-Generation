@@ -26,7 +26,7 @@ from octopus.datasethandlers.numericaldatasethandler import NumericalDatasetHand
 from octopus.modelhandlers.vaehandler import VaeHandler
 
 # customized to this data
-from customized.phases import Training, Evaluation
+from customized.phases import Training, Evaluation, Generation
 from customized.formatters import OutputFormatter
 from customized.datasets import TrainValDataset
 import customized.datasets as customized_datasets
@@ -135,6 +135,8 @@ class Octopus:
         # load phases
         self.training = Training(self.train_loader, self.loss_func, self.devicehandler)
         self.evaluation = Evaluation(self.val_loader, self.loss_func, self.devicehandler)
+        self.generation = Generation(self.config['hyperparameters'].getint('num_proteins_to_generate'),
+                                     self.devicehandler)
 
         logging.info('Pipeline components are initialized.')
 
@@ -152,7 +154,8 @@ class Octopus:
         logging.info('octopus is running the pipeline...')
 
         # run epochs
-        self.phasehandler.process_epochs(self.model, self.optimizer, self.scheduler, self.training, self.evaluation)
+        self.phasehandler.process_epochs(self.model, self.optimizer, self.scheduler, self.training, self.evaluation,
+                                         self.generation)
 
         logging.info('octopus has finished running the pipeline.')
 

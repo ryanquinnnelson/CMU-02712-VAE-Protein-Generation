@@ -5,6 +5,7 @@ Based on https://github.com/psipred/protein-vae/ with additional inspiration fro
 """
 __author__ = 'ryanquinnnelson'
 
+import logging
 from collections import OrderedDict
 
 import torch
@@ -100,7 +101,7 @@ class Encoder(nn.Module):
         nn.init.xavier_uniform_(self.linear2.weight)
 
     def forward(self, x):
-        x = torch.flatten(x, start_dim=1)  # may be unnecessary
+        # x = torch.flatten(x, start_dim=1)  # may be unnecessary
         x = self.mlp(x)
         mu = self.linear1(x)
         log_var = self.softplus(self.linear2(x))
@@ -135,7 +136,7 @@ class PaperVAE(nn.Module):
         self.Decoder = Decoder(self.latent_dim, reverse_hidden_sizes, input_size, batch_normalization,
                                dropout)
 
-    def forward(self, x):
+    def forward(self, i, x):
         z, mu, sigma = self.Encoder(x)
         x = self.Decoder(z)
         return x, mu, sigma
