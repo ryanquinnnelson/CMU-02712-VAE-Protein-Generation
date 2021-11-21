@@ -7,8 +7,6 @@ import logging
 import os
 from datetime import datetime
 
-import numpy as np
-
 import octopus.helper as utilities
 
 
@@ -16,6 +14,7 @@ class OutputHandler:
     """
     Defines object to handle saving model output.
     """
+
     def __init__(self, run_name, output_dir):
         """
         Initialize OutputHandler.
@@ -37,7 +36,7 @@ class OutputHandler:
         logging.info('Preparing output directory...')
         utilities.create_directory(self.output_dir)
 
-    def save(self, arr, epoch):
+    def save(self, df, epoch):
         """
         Save given DataFrame to the output directory.
 
@@ -53,7 +52,6 @@ class OutputHandler:
         path = os.path.join(self.output_dir, filename)
 
         logging.info(f'Saving test output to {path}...')
-        logging.info(f'arr.shape:{arr.shape}')
 
         # save output
-        np.save(path, arr)
+        df.to_csv(path)

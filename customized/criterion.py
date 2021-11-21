@@ -33,6 +33,7 @@ class CustomCriterion1:
         #   - burn in is not already at 1.0
         if epoch >= self.burn_in_start and self.kl_weight <= (1.0 - self.delta_burn_in):
             self.kl_weight += self.delta_burn_in
+            logging.info(f'kl_weight:{self.kl_weight}')
 
     def calculate_loss(self, x, x_hat, mu, sigma):
         # KL divergence between p(z|x) and N(0,1)
@@ -43,7 +44,6 @@ class CustomCriterion1:
 
         # combined loss
         loss = recon_loss + (kl_loss * self.kl_weight)
-
         return loss
 
     def __str__(self):
@@ -82,6 +82,7 @@ class CustomCriterion2:
         #   - burn in is not already at 1.0
         if epoch >= self.burn_in_start and self.kl_weight <= (1.0 - self.delta_burn_in):
             self.kl_weight += self.delta_burn_in
+            logging.info(f'kl_weight:{self.kl_weight}')
 
     def calculate_loss(self, x, x_hat, mu, sigma):
 

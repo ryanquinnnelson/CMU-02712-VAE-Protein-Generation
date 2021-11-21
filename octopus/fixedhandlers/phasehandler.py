@@ -94,8 +94,10 @@ class PhaseHandler:
             val_loss, val_metric = evaluation.evaluate_model(epoch, self.num_epochs, model)
 
             # generate
-            out = generation.evaluate_model(epoch, self.num_epochs, model)
-            self.outputhandler.save(out, epoch)
+            if epoch % 5 == 0:
+                out = generation.evaluate_model(epoch, self.num_epochs, model)
+                out = self.formatter.format_output(out)
+                self.outputhandler.save(out, epoch)
 
             # stats
             end = time.time()
@@ -107,7 +109,8 @@ class PhaseHandler:
             self.schedulerhandler.update_scheduler(scheduler, self.statshandler.stats)
 
             # save model checkpoint
-            self.checkpointhandler.save(model, optimizer, scheduler, epoch + 1, self.statshandler.stats)
+            if epoch % 5 == 0:
+                self.checkpointhandler.save(model, optimizer, scheduler, epoch + 1, self.statshandler.stats)
 
             # check if early stopping criteria is met
             if self.statshandler.stopping_criteria_is_met(epoch, self.wandbconnector):

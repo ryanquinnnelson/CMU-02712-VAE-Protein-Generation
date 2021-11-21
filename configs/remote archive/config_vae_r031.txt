@@ -1,5 +1,5 @@
 [DEFAULT]
-run_name = PaperVAE-Run-27-2H
+run_name = PaperVAE-Run-31-1H32
 
 
 
@@ -51,14 +51,14 @@ output_dir = /home/ubuntu/output
 [dataloader]
 num_workers=8
 pin_memory=True
-batch_size=16
+batch_size=32
 
 
 [model]
 model_type=PaperVAE
 input_size=13684
-hidden_sizes=2048,512
-latent_dim=16
+hidden_sizes=4096
+latent_dim=32
 batch_normalization=True
 dropout=0.4
 
@@ -73,11 +73,11 @@ checkpoint_file = None
 
 [hyperparameters]
 num_proteins_to_generate = 100
-num_epochs = 100
+num_epochs = 200
 criterion_type=CustomLoss1
-criterion_kwargs=use_burn_in=False,delta_burn_in=0.003,burn_in_start=0
+criterion_kwargs=use_burn_in=True,delta_burn_in=0.003,burn_in_start=100
 optimizer_type=Adam
 optimizer_kwargs=lr=0.0005
 scheduler_type=ReduceLROnPlateau
-scheduler_kwargs=factor=0.5,patience=5,mode=min,verbose=True
-scheduler_plateau_metric=val_loss
+scheduler_kwargs=factor=0.5,patience=5,mode=max,verbose=True
+scheduler_plateau_metric=val_acc

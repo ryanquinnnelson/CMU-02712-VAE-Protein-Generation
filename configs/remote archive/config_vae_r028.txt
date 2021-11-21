@@ -1,5 +1,5 @@
 [DEFAULT]
-run_name = PaperVAE-Run-28-3H
+run_name = PaperVAE-Run-28-3H32
 
 
 
@@ -51,7 +51,7 @@ output_dir = /home/ubuntu/output
 [dataloader]
 num_workers=8
 pin_memory=True
-batch_size=16
+batch_size=32
 
 
 [model]

@@ -32,6 +32,6 @@ class OutputFormatter:
         """
 
         # convert string array to dataframe
-        df = pd.DataFrame(out).reset_index(drop=False)
+        df = pd.DataFrame(out)
 
-        return out
+        return df

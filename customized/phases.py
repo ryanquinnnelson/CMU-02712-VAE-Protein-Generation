@@ -192,11 +192,31 @@ class Evaluation:
             return val_loss, val_acc
 
 
+def _convert_to_protein_seq(out, num_proteins_to_generate, alphabet):
+    # split single record into 622 rows of 22 columns, where each column is a possible class
+    out = out.reshape((num_proteins_to_generate, -1, 22))
+
+    # convert probabilities to classes
+    # largest probability is predicted class
+    out = np.argmax(out, axis=2)
+
+    # convert classes into protein sequences
+    sequences = []
+    for record in out:
+        sequence = []
+        for idx in record:
+            sequence.append(alphabet[idx])
+        sequences.append(''.join(sequence))  # concatenate separate letters into protein sequence
+
+    return sequences
+
+
 class Generation:
 
     def __init__(self, num_proteins_to_generate, devicehandler):
         self.num_proteins_to_generate = num_proteins_to_generate
         self.devicehandler = devicehandler
+        self.alphabet = '$GALMFWKQESPVICYHRNDTX'  # TODO: check where X belongs in alphabet
 
     def evaluate_model(self, epoch, num_epochs, model):
         logging.info(f'Running epoch {epoch}/{num_epochs} of generation...')
@@ -220,4 +240,6 @@ class Generation:
             out = out.cpu().detach().numpy()
             logging.info(f'generate out:{out.shape}')
 
-            return out
+            sequences = _convert_to_protein_seq(out, self.num_proteins_to_generate, self.alphabet)
+
+            return sequences
