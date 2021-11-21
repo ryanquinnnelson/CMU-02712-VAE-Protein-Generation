@@ -48,10 +48,10 @@ class OutputHandler:
 
         """
         # generate filename
-        filename = f'{self.run_name}.epoch{epoch}.{datetime.now().strftime("%Y%m%d.%H.%M.%S")}.output.npy'
+        filename = f'{self.run_name}.epoch{epoch}.{datetime.now().strftime("%Y%m%d.%H.%M.%S")}.output.csv'
         path = os.path.join(self.output_dir, filename)
 
         logging.info(f'Saving test output to {path}...')
 
         # save output
-        df.to_csv(path)
+        df.to_csv(path,header=False,index=False)
