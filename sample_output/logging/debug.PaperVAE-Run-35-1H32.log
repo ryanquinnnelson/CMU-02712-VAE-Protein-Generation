@@ -1,0 +1,306 @@
+2021-11-21 17:22:33,177 [INFO]               _---_
+2021-11-21 17:22:33,177 [INFO]             /       \
+2021-11-21 17:22:33,177 [INFO]            |         |
+2021-11-21 17:22:33,177 [INFO]    _--_    |         |    _--_
+2021-11-21 17:22:33,177 [INFO]   /__  \   \  0   0  /   /  __\
+2021-11-21 17:22:33,177 [INFO]      \  \   \       /   /  /
+2021-11-21 17:22:33,177 [INFO]       \  -__-       -__-  /
+2021-11-21 17:22:33,177 [INFO]   |\   \    __     __    /   /|
+2021-11-21 17:22:33,177 [INFO]   | \___----         ----___/ |
+2021-11-21 17:22:33,177 [INFO]   \                           /
+2021-11-21 17:22:33,177 [INFO]    --___--/    / \    \--___--
+2021-11-21 17:22:33,177 [INFO]          /    /   \    \
+2021-11-21 17:22:33,177 [INFO]    --___-    /     \    -___--
+2021-11-21 17:22:33,177 [INFO]    \_    __-         -__    _/
+2021-11-21 17:22:33,177 [INFO]      ----               ----
+2021-11-21 17:22:33,177 [INFO] 
+2021-11-21 17:22:33,177 [INFO]        O  C  T  O  P  U  S
+2021-11-21 17:22:33,177 [INFO] 
+2021-11-21 17:22:33,177 [INFO] Initializing octopus...
+2021-11-21 17:22:33,178 [INFO] Parsing configuration from /home/ubuntu/CMU-02712-PROJECT/configs/remote/config_vae_r035.txt...
+2021-11-21 17:22:33,178 [INFO] Initializing wandb connector...
+2021-11-21 17:22:33,178 [INFO] Initializing pip installations handler...
+2021-11-21 17:22:33,178 [INFO] Initializing checkpoint handler...
+2021-11-21 17:22:33,178 [INFO] Overriding delete_existing_checkpoints value. Existing checkpoints will not be deleted because checkpoint is being loaded for this run.
+2021-11-21 17:22:33,178 [INFO] Initializing criterion handler...
+2021-11-21 17:22:33,178 [INFO] Initializing device handler...
+2021-11-21 17:22:33,178 [INFO] Initializing dataloader handler...
+2021-11-21 17:22:33,178 [INFO] Initializing optimizer handler...
+2021-11-21 17:22:33,178 [INFO] Initializing output handler...
+2021-11-21 17:22:33,178 [INFO] Initializing scheduler handler...
+2021-11-21 17:22:33,179 [INFO] Initializing stats handler...
+2021-11-21 17:22:33,179 [INFO] Initializing output formatter...
+2021-11-21 17:22:33,179 [INFO] Initializing phase handler...
+2021-11-21 17:22:33,179 [INFO] Initializing numerical dataset handler...
+2021-11-21 17:22:33,179 [INFO] Initializing VAE handler...
+2021-11-21 17:22:33,179 [INFO] octopus initialization is complete.
+2021-11-21 17:22:33,179 [INFO] octopus is installing necessary packages...
+2021-11-21 17:22:33,179 [INFO] pip install --upgrade wandb==0.10.8 
+2021-11-21 17:22:35,508 [INFO] Looking in indexes: https://pypi.org/simple, https://pip.repos.neuron.amazonaws.com
+Requirement already satisfied: wandb==0.10.8 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (0.10.8)
+Requirement already satisfied: promise<3,>=2.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (2.3)
+Requirement already satisfied: PyYAML in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (6.0)
+Requirement already satisfied: six>=1.13.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (1.16.0)
+Requirement already satisfied: requests<3,>=2.0.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (2.26.0)
+Requirement already satisfied: subprocess32>=3.5.3 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (3.5.4)
+Requirement already satisfied: python-dateutil>=2.6.1 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (2.8.2)
+Requirement already satisfied: shortuuid>=0.5.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (1.0.8)
+Requirement already satisfied: protobuf>=3.12.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (3.19.1)
+Requirement already satisfied: watchdog>=0.8.3 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (2.1.6)
+Requirement already satisfied: sentry-sdk>=0.4.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (1.5.0)
+Requirement already satisfied: GitPython>=1.0.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (3.1.24)
+Requirement already satisfied: psutil>=5.0.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (5.8.0)
+Requirement already satisfied: configparser>=3.8.1 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (5.1.0)
+Requirement already satisfied: docker-pycreds>=0.4.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (0.4.0)
+Requirement already satisfied: Click>=7.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from wandb==0.10.8) (8.0.3)
+Requirement already satisfied: importlib-metadata in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from Click>=7.0->wandb==0.10.8) (4.8.2)
+Requirement already satisfied: typing-extensions>=3.7.4.3 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from GitPython>=1.0.0->wandb==0.10.8) (3.10.0.2)
+Requirement already satisfied: gitdb<5,>=4.0.1 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from GitPython>=1.0.0->wandb==0.10.8) (4.0.9)
+Requirement already satisfied: idna<4,>=2.5 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from requests<3,>=2.0.0->wandb==0.10.8) (3.1)
+Requirement already satisfied: certifi>=2017.4.17 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from requests<3,>=2.0.0->wandb==0.10.8) (2021.10.8)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from requests<3,>=2.0.0->wandb==0.10.8) (1.26.7)
+Requirement already satisfied: charset-normalizer~=2.0.0 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from requests<3,>=2.0.0->wandb==0.10.8) (2.0.0)
+Requirement already satisfied: smmap<6,>=3.0.1 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from gitdb<5,>=4.0.1->GitPython>=1.0.0->wandb==0.10.8) (5.0.0)
+Requirement already satisfied: zipp>=0.5 in ./anaconda3/envs/pytorch_latest_p37/lib/python3.7/site-packages (from importlib-metadata->Click>=7.0->wandb==0.10.8) (3.6.0)
+
+2021-11-21 17:22:35,509 [INFO] Package installation is complete.
+2021-11-21 17:22:35,509 [INFO] octopus is setting up the environment...
+2021-11-21 17:22:35,509 [INFO] Setting up wandb connection...
+2021-11-21 17:22:35,509 [INFO] Directory already exists:/home/ubuntu/wandb.
+2021-11-21 17:22:35,509 [INFO] Logging into wandb...
+2021-11-21 17:22:35,926 [INFO] setting login settings: {}
+2021-11-21 17:22:36,118 [INFO] Initializing wandb...
+2021-11-21 17:22:36,121 [INFO] setting login settings: {}
+2021-11-21 17:22:36,940 [INFO] Preparing checkpoint directory...
+2021-11-21 17:22:36,940 [INFO] Directory already exists:/data/checkpoints.
+2021-11-21 17:22:36,940 [INFO] Preparing output directory...
+2021-11-21 17:22:36,940 [INFO] Directory already exists:/home/ubuntu/output.
+2021-11-21 17:22:36,940 [INFO] Setting up device...
+2021-11-21 17:22:36,987 [INFO] Gpu detected. device is set to cuda.
+2021-11-21 17:22:36,987 [INFO] DataLoader settings for training dataset:{'shuffle': True, 'batch_size': 32, 'num_workers': 8, 'pin_memory': True}
+2021-11-21 17:22:36,987 [INFO] DataLoader settings for validation dataset:{'shuffle': False, 'batch_size': 32, 'num_workers': 8, 'pin_memory': True}
+2021-11-21 17:22:36,987 [INFO] octopus has finished setting up the environment.
+2021-11-21 17:22:36,987 [INFO] octopus is initializing pipeline components...
+2021-11-21 17:22:38,407 [INFO] Model initialized:
+PaperVAE(
+  (Encoder): Encoder(
+    (mlp): MLP(
+      (blocks): Sequential(
+        (block1): LinearBlock(
+          (linear): Linear(in_features=13684, out_features=4096, bias=True)
+          (bn): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (dropout): Dropout(p=0.4, inplace=False)
+          (relu): ReLU(inplace=True)
+        )
+      )
+    )
+    (linear1): Linear(in_features=4096, out_features=32, bias=True)
+    (linear2): Linear(in_features=4096, out_features=32, bias=True)
+    (softplus): Softplus(beta=1, threshold=20)
+  )
+  (Decoder): Decoder(
+    (mlp): MLP(
+      (blocks): Sequential(
+        (block1): LinearBlock(
+          (linear): Linear(in_features=32, out_features=4096, bias=True)
+          (bn): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (dropout): Dropout(p=0.4, inplace=False)
+          (relu): ReLU(inplace=True)
+        )
+      )
+    )
+    (linear): Linear(in_features=4096, out_features=13684, bias=True)
+    (sigmoid): Sigmoid()
+  )
+)
+2021-11-21 17:22:41,971 [INFO] Watching model with wandb...
+2021-11-21 17:22:41,973 [INFO] Criterion is set:
+CustomCriterion2: 
+	loss=(kl + bce)
+	kl = (0.5 * sigma ** 2 + 0.5 * mu ** 2 - torch.log(sigma) - 0.5)
+	mse = binary_cross_entropy(x_hat, x)
+	use_burn_in:False
+	delta_burn_in:0.003
+	burn_in_start:0
+	kl_weight:1.0
+2021-11-21 17:22:41,973 [INFO] Optimizer initialized:
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0005
+    weight_decay: 0
+)
+2021-11-21 17:22:41,973 [INFO] LR=0.0005
+2021-11-21 17:22:41,973 [INFO] Scheduler initialized:
+<torch.optim.lr_scheduler.ReduceLROnPlateau object at 0x7f41155134d0>
+{'factor': 0.5, 'min_lrs': [0], 'patience': 5.0, 'verbose': 'True', 'cooldown': 0, 'cooldown_counter': 0, 'mode': 'max', 'threshold': 0.0001, 'threshold_mode': 'rel', 'best': -inf, 'num_bad_epochs': 0, 'mode_worse': -inf, 'eps': 1e-08, 'last_epoch': 0}
+2021-11-21 17:22:41,974 [INFO] Loading data...
+2021-11-21 17:22:42,152 [INFO] Loaded 4026 training records.
+2021-11-21 17:22:42,238 [INFO] Loaded 1984 validation records.
+2021-11-21 17:22:42,238 [INFO] Loading training phase...
+2021-11-21 17:22:42,238 [INFO] Loading evaluation phase...
+2021-11-21 17:22:42,239 [INFO] Pipeline components are initialized.
+2021-11-21 17:22:42,239 [INFO] octopus is running the pipeline...
+2021-11-21 17:22:42,239 [INFO] Loading checkpoint from /data/checkpoints/PaperVAE-Run-35-1H32.checkpoint.195.pt...
+2021-11-21 17:22:43,307 [INFO] Reporting previous stats...
+2021-11-21 17:22:43,328 [INFO] Running epoch 196/200 of training...
+2021-11-21 17:22:44,017 [INFO] inputs.shape:torch.Size([32, 13684])
+2021-11-21 17:22:44,017 [INFO] out.shape:torch.Size([32, 13684])
+2021-11-21 17:22:44,017 [INFO] mu.shape:torch.Size([32, 32])
+2021-11-21 17:22:44,017 [INFO] sigma.shape:torch.Size([32, 32])
+2021-11-21 17:22:51,968 [INFO] Running epoch 196/200 of evaluation...
+2021-11-21 17:22:52,257 [INFO] out.shape:(32, 622, 22)
+2021-11-21 17:22:52,257 [INFO] inputs.shape:(32, 622, 22)
+2021-11-21 17:22:52,258 [INFO] labels_out.shape:(32, 622)
+2021-11-21 17:22:52,258 [INFO] labels_inputs.shape:(32, 622)
+2021-11-21 17:22:52,258 [INFO] n_hits:16011
+2021-11-21 17:22:52,767 [INFO] Running epoch 196/200 of generation...
+2021-11-21 17:22:52,768 [INFO] generate in:torch.Size([100, 32])
+2021-11-21 17:22:52,773 [INFO] generate out:(100, 13684)
+2021-11-21 17:22:52,785 [INFO] Saving test output to /home/ubuntu/output/PaperVAE-Run-35-1H32.epoch196.20211121.17.22.52.output.npy...
+2021-11-21 17:22:52,789 [INFO] Collecting stats for epoch 196...
+2021-11-21 17:22:52,789 [INFO] stats:{'epoch': 196, 'lr': 1.5625e-05, 'runtime': 9.460615634918213, 'train_loss': 16194.403374565973, 'val_loss': 30476.13882938508, 'val_acc': 0.7678477660512395}
+2021-11-21 17:22:52,790 [INFO] Checking early stopping criteria...
+2021-11-21 17:22:52,790 [INFO] Checking whether comparison metric for current model is worse than the best model so far...
+2021-11-21 17:22:57,553 [INFO] Gathered metrics for epoch 196 from wandb:
+                     name  epoch   val_acc
+195  PaperVAE-Run-29-1H32    196  0.665830
+195  PaperVAE-Run-35-1H32    196  0.766820
+195  PaperVAE-Run-35-1H32    196  0.767926
+195  PaperVAE-Run-33-1H32    196  0.772752
+2021-11-21 17:22:57,558 [INFO] best:	PaperVAE-Run-33-1H32	0.7727519513017321
+model:	PaperVAE-Run-35-1H32	0.7678477660512395
+2021-11-21 17:22:57,558 [INFO] A previous model has the best value for the comparison metric for this epoch.
+2021-11-21 17:22:57,558 [INFO] Number of epochs in a row this model is worse than best model:1
+2021-11-21 17:22:57,558 [INFO] Number of epochs in a row this model can be worse than best model before stopping:100
+2021-11-21 17:22:57,558 [INFO] Early stopping criteria is not met.
+2021-11-21 17:22:57,558 [INFO] Running epoch 197/200 of training...
+2021-11-21 17:22:57,859 [INFO] inputs.shape:torch.Size([32, 13684])
+2021-11-21 17:22:57,859 [INFO] out.shape:torch.Size([32, 13684])
+2021-11-21 17:22:57,859 [INFO] mu.shape:torch.Size([32, 32])
+2021-11-21 17:22:57,859 [INFO] sigma.shape:torch.Size([32, 32])
+2021-11-21 17:23:05,814 [INFO] Running epoch 197/200 of evaluation...
+2021-11-21 17:23:06,097 [INFO] out.shape:(32, 622, 22)
+2021-11-21 17:23:06,098 [INFO] inputs.shape:(32, 622, 22)
+2021-11-21 17:23:06,098 [INFO] labels_out.shape:(32, 622)
+2021-11-21 17:23:06,098 [INFO] labels_inputs.shape:(32, 622)
+2021-11-21 17:23:06,098 [INFO] n_hits:15954
+2021-11-21 17:23:06,619 [INFO] Running epoch 197/200 of generation...
+2021-11-21 17:23:06,620 [INFO] generate in:torch.Size([100, 32])
+2021-11-21 17:23:06,624 [INFO] generate out:(100, 13684)
+2021-11-21 17:23:06,637 [INFO] Saving test output to /home/ubuntu/output/PaperVAE-Run-35-1H32.epoch197.20211121.17.23.06.output.npy...
+2021-11-21 17:23:06,640 [INFO] Collecting stats for epoch 197...
+2021-11-21 17:23:06,640 [INFO] stats:{'epoch': 197, 'lr': 1.5625e-05, 'runtime': 9.081715822219849, 'train_loss': 16189.659729972718, 'val_loss': 30328.42943548387, 'val_acc': 0.7678566798049995}
+2021-11-21 17:23:06,641 [INFO] Checking early stopping criteria...
+2021-11-21 17:23:06,641 [INFO] Checking whether comparison metric for current model is worse than the best model so far...
+2021-11-21 17:23:11,453 [INFO] Gathered metrics for epoch 197 from wandb:
+                     name  epoch   val_acc
+196  PaperVAE-Run-29-1H32    197  0.667249
+196  PaperVAE-Run-35-1H32    197  0.766725
+196  PaperVAE-Run-35-1H32    197  0.768236
+196  PaperVAE-Run-33-1H32    197  0.772640
+2021-11-21 17:23:11,457 [INFO] best:	PaperVAE-Run-33-1H32	0.772640124209107
+model:	PaperVAE-Run-35-1H32	0.7678566798049995
+2021-11-21 17:23:11,457 [INFO] A previous model has the best value for the comparison metric for this epoch.
+2021-11-21 17:23:11,457 [INFO] Number of epochs in a row this model is worse than best model:2
+2021-11-21 17:23:11,457 [INFO] Number of epochs in a row this model can be worse than best model before stopping:100
+2021-11-21 17:23:11,457 [INFO] Early stopping criteria is not met.
+2021-11-21 17:23:11,457 [INFO] Running epoch 198/200 of training...
+2021-11-21 17:23:11,769 [INFO] inputs.shape:torch.Size([32, 13684])
+2021-11-21 17:23:11,770 [INFO] out.shape:torch.Size([32, 13684])
+2021-11-21 17:23:11,771 [INFO] mu.shape:torch.Size([32, 32])
+2021-11-21 17:23:11,771 [INFO] sigma.shape:torch.Size([32, 32])
+2021-11-21 17:23:19,735 [INFO] Running epoch 198/200 of evaluation...
+2021-11-21 17:23:20,012 [INFO] out.shape:(32, 622, 22)
+2021-11-21 17:23:20,013 [INFO] inputs.shape:(32, 622, 22)
+2021-11-21 17:23:20,013 [INFO] labels_out.shape:(32, 622)
+2021-11-21 17:23:20,014 [INFO] labels_inputs.shape:(32, 622)
+2021-11-21 17:23:20,014 [INFO] n_hits:15997
+2021-11-21 17:23:20,540 [INFO] Running epoch 198/200 of generation...
+2021-11-21 17:23:20,540 [INFO] generate in:torch.Size([100, 32])
+2021-11-21 17:23:20,546 [INFO] generate out:(100, 13684)
+2021-11-21 17:23:20,559 [INFO] Saving test output to /home/ubuntu/output/PaperVAE-Run-35-1H32.epoch198.20211121.17.23.20.output.npy...
+2021-11-21 17:23:20,562 [INFO] Collecting stats for epoch 198...
+2021-11-21 17:23:20,562 [INFO] stats:{'epoch': 198, 'lr': 1.5625e-05, 'runtime': 9.104634523391724, 'train_loss': 16065.960170200893, 'val_loss': 30052.23869077621, 'val_acc': 0.7673834405144695}
+2021-11-21 17:23:20,563 [INFO] Checking early stopping criteria...
+2021-11-21 17:23:20,563 [INFO] Checking whether comparison metric for current model is worse than the best model so far...
+2021-11-21 17:23:25,858 [INFO] Gathered metrics for epoch 198 from wandb:
+                     name  epoch   val_acc
+197  PaperVAE-Run-29-1H32    198  0.665261
+197  PaperVAE-Run-35-1H32    198  0.768316
+197  PaperVAE-Run-35-1H32    198  0.768656
+197  PaperVAE-Run-33-1H32    198  0.772183
+2021-11-21 17:23:25,861 [INFO] best:	PaperVAE-Run-33-1H32	0.7721830917435951
+model:	PaperVAE-Run-35-1H32	0.7673834405144695
+2021-11-21 17:23:25,862 [INFO] A previous model has the best value for the comparison metric for this epoch.
+2021-11-21 17:23:25,862 [INFO] Number of epochs in a row this model is worse than best model:3
+2021-11-21 17:23:25,862 [INFO] Number of epochs in a row this model can be worse than best model before stopping:100
+2021-11-21 17:23:25,862 [INFO] Early stopping criteria is not met.
+2021-11-21 17:23:25,862 [INFO] Running epoch 199/200 of training...
+2021-11-21 17:23:26,153 [INFO] inputs.shape:torch.Size([32, 13684])
+2021-11-21 17:23:26,154 [INFO] out.shape:torch.Size([32, 13684])
+2021-11-21 17:23:26,154 [INFO] mu.shape:torch.Size([32, 32])
+2021-11-21 17:23:26,154 [INFO] sigma.shape:torch.Size([32, 32])
+2021-11-21 17:23:34,115 [INFO] Running epoch 199/200 of evaluation...
+2021-11-21 17:23:34,408 [INFO] out.shape:(32, 622, 22)
+2021-11-21 17:23:34,408 [INFO] inputs.shape:(32, 622, 22)
+2021-11-21 17:23:34,408 [INFO] labels_out.shape:(32, 622)
+2021-11-21 17:23:34,408 [INFO] labels_inputs.shape:(32, 622)
+2021-11-21 17:23:34,408 [INFO] n_hits:15873
+2021-11-21 17:23:34,921 [INFO] Running epoch 199/200 of generation...
+2021-11-21 17:23:34,921 [INFO] generate in:torch.Size([100, 32])
+2021-11-21 17:23:34,926 [INFO] generate out:(100, 13684)
+2021-11-21 17:23:34,939 [INFO] Saving test output to /home/ubuntu/output/PaperVAE-Run-35-1H32.epoch199.20211121.17.23.34.output.npy...
+2021-11-21 17:23:34,942 [INFO] Collecting stats for epoch 199...
+2021-11-21 17:23:34,942 [INFO] stats:{'epoch': 199, 'lr': 1.5625e-05, 'runtime': 9.079553604125977, 'train_loss': 16175.039380270337, 'val_loss': 30448.218623991936, 'val_acc': 0.768097351156519}
+2021-11-21 17:23:34,942 [INFO] Checking early stopping criteria...
+2021-11-21 17:23:34,942 [INFO] Checking whether comparison metric for current model is worse than the best model so far...
+2021-11-21 17:23:39,441 [INFO] Gathered metrics for epoch 199 from wandb:
+                     name  epoch   val_acc
+198  PaperVAE-Run-29-1H32    199  0.666451
+198  PaperVAE-Run-35-1H32    199  0.767244
+198  PaperVAE-Run-35-1H32    199  0.767747
+198  PaperVAE-Run-33-1H32    199  0.772435
+2021-11-21 17:23:39,445 [INFO] best:	PaperVAE-Run-33-1H32	0.7724351078726274
+model:	PaperVAE-Run-35-1H32	0.768097351156519
+2021-11-21 17:23:39,445 [INFO] A previous model has the best value for the comparison metric for this epoch.
+2021-11-21 17:23:39,445 [INFO] Number of epochs in a row this model is worse than best model:4
+2021-11-21 17:23:39,446 [INFO] Number of epochs in a row this model can be worse than best model before stopping:100
+2021-11-21 17:23:39,446 [INFO] Early stopping criteria is not met.
+2021-11-21 17:23:39,446 [INFO] Running epoch 200/200 of training...
+2021-11-21 17:23:39,740 [INFO] inputs.shape:torch.Size([32, 13684])
+2021-11-21 17:23:39,740 [INFO] out.shape:torch.Size([32, 13684])
+2021-11-21 17:23:39,741 [INFO] mu.shape:torch.Size([32, 32])
+2021-11-21 17:23:39,741 [INFO] sigma.shape:torch.Size([32, 32])
+2021-11-21 17:23:47,688 [INFO] Running epoch 200/200 of evaluation...
+2021-11-21 17:23:47,972 [INFO] out.shape:(32, 622, 22)
+2021-11-21 17:23:47,972 [INFO] inputs.shape:(32, 622, 22)
+2021-11-21 17:23:47,972 [INFO] labels_out.shape:(32, 622)
+2021-11-21 17:23:47,972 [INFO] labels_inputs.shape:(32, 622)
+2021-11-21 17:23:47,972 [INFO] n_hits:15974
+2021-11-21 17:23:48,504 [INFO] Running epoch 200/200 of generation...
+2021-11-21 17:23:48,505 [INFO] generate in:torch.Size([100, 32])
+2021-11-21 17:23:48,510 [INFO] generate out:(100, 13684)
+2021-11-21 17:23:48,523 [INFO] Saving test output to /home/ubuntu/output/PaperVAE-Run-35-1H32.epoch200.20211121.17.23.48.output.npy...
+2021-11-21 17:23:48,526 [INFO] Collecting stats for epoch 200...
+2021-11-21 17:23:48,526 [INFO] stats:{'epoch': 200, 'lr': 1.5625e-05, 'runtime': 9.079936981201172, 'train_loss': 16082.993892609127, 'val_loss': 30166.473979334678, 'val_acc': 0.7679911964526501}
+2021-11-21 17:23:48,526 [INFO] Saving checkpoint to /data/checkpoints/PaperVAE-Run-35-1H32.checkpoint.200.pt...
+2021-11-21 17:23:58,780 [INFO] Checking early stopping criteria...
+2021-11-21 17:23:58,780 [INFO] Checking whether comparison metric for current model is worse than the best model so far...
+2021-11-21 17:24:03,586 [INFO] Gathered metrics for epoch 200 from wandb:
+                     name  epoch   val_acc
+199  PaperVAE-Run-29-1H32    200  0.665916
+199  PaperVAE-Run-35-1H32    200  0.767398
+199  PaperVAE-Run-35-1H32    200  0.767991
+199  PaperVAE-Run-35-1H32    200  0.768001
+199  PaperVAE-Run-33-1H32    200  0.771974
+2021-11-21 17:24:03,590 [INFO] best:	PaperVAE-Run-33-1H32	0.7719740237008609
+model:	PaperVAE-Run-35-1H32	0.7679911964526501
+2021-11-21 17:24:03,590 [INFO] A previous model has the best value for the comparison metric for this epoch.
+2021-11-21 17:24:03,590 [INFO] Number of epochs in a row this model is worse than best model:5
+2021-11-21 17:24:03,590 [INFO] Number of epochs in a row this model can be worse than best model before stopping:100
+2021-11-21 17:24:03,591 [INFO] Early stopping criteria is not met.
+2021-11-21 17:24:03,591 [INFO] octopus has finished running the pipeline.
+2021-11-21 17:24:06,675 [INFO] octopus shutdown complete.
