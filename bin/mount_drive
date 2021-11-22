@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+# Author: ryanquinnnelson
+
+usage(){
+  echo 'usage: mount_drive [-d drivepath] [-h]'
+}
+
+description(){
+  d=$(cat << EOF
+
+Mounts a drive on AWS EC2 instances, creates a /data directory
+within the mounted drive, then changes ownership and permissions
+of the directory to make it available to the user.
+
+If drivepath is not provided using the option, assumes the
+drivepath is /dev/nvme1n1.
+
+Example
+
+%  mount_drive -d /dev/nvme1n1
+
+>> Listing block devices...
+>> NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+>> loop0         7:0    0    25M  1 loop /snap/amazon-ssm-agent/4046
+>> loop1         7:1    0  32.4M  1 loop /snap/snapd/13270
+>> loop3         7:3    0  55.4M  1 loop /snap/core18/2128
+>> loop5         7:5    0  33.3M  1 loop /snap/amazon-ssm-agent/3552
+>> loop6         7:6    0  42.2M  1 loop /snap/snapd/13831
+>> loop7         7:7    0  55.5M  1 loop /snap/core18/2246
+>> nvme1n1     259:0    0 209.6G  0 disk
+>> nvme0n1     259:1    0   110G  0 disk
+>> └─nvme0n1p1 259:2    0   110G  0 part /
+>>
+>> /dev/nvme1n1: data
+>> Drive is empty. Mounting drive...
+>> meta-data=/dev/nvme1n1           isize=512    agcount=4, agsize=13732910 blks
+>>          =                       sectsz=512   attr=2, projid32bit=1
+>>          =                       crc=1        finobt=1, sparse=0, rmapbt=0, reflink=0
+>> data     =                       bsize=4096   blocks=54931640, imaxpct=25
+>>          =                       sunit=0      swidth=0 blks
+>> naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+>> log      =internal log           bsize=4096   blocks=26822, version=2
+>>          =                       sectsz=512   sunit=0 blks, lazy-count=1
+>> realtime =none                   extsz=4096   blocks=0, rtextents=0
+>>
+>> Checking amount of free disk space available...
+>> Filesystem      Size  Used Avail Use% Mounted on
+>> udev             32G     0   32G   0% /dev
+>> tmpfs           6.3G  860K  6.3G   1% /run
+>> /dev/nvme0n1p1  107G   97G   11G  91% /
+>> tmpfs            32G     0   32G   0% /dev/shm
+>> tmpfs           5.0M     0  5.0M   0% /run/lock
+>> tmpfs            32G     0   32G   0% /sys/fs/cgroup
+>> /dev/loop0       25M   25M     0 100% /snap/amazon-ssm-agent/4046
+>> /dev/loop1       33M   33M     0 100% /snap/snapd/13270
+>> /dev/loop3       56M   56M     0 100% /snap/core18/2128
+>> /dev/loop5       34M   34M     0 100% /snap/amazon-ssm-agent/3552
+>> /dev/loop6       43M   43M     0 100% /snap/snapd/13831
+>> /dev/loop7       56M   56M     0 100% /snap/core18/2246
+>> tmpfs           6.3G     0  6.3G   0% /run/user/1000
+>> /dev/nvme1n1    210G  246M  210G   1% /data
+
+EOF
+)
+  echo "$d"
+}
+
+
+# read in arguments
+# source: https://sookocheff.com/post/bash/parsing-bash-script-arguments-with-shopts/
+while getopts ":hd:" opt; do
+  case ${opt} in
+    d )
+      drive_path=$OPTARG
+      ;;
+    h )
+      usage
+      description
+      exit
+      ;;
+    ? )
+      echo "unknown option: $OPTARG" 1>&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+
+
+# Follows the steps outlined on StackOverflow:
+# https://stackoverflow.com/questions/45167717/mounting-a-nvme-disk-on-aws-ec2/64709212#64709212
+
+
+# drive is likely  /dev/nvme1n1
+if [ -z "$drive_path" ]; then
+    echo "Drive path was not supplied. Drive path defaults to /dev/nvme1n1."
+    drive_path='/dev/nvme1n1'
+fi
+
+
+
+echo "Listing block devices..."
+lsblk
+echo
+
+# the output should be /dev/nvme1n1: data for empty drives on g ec2 instances
+sudo file -s $drive_path
+
+
+if [[ $(sudo file -s $drive_path | grep -L ": data") ]]; then
+	echo "Error: Drive either is not empty or does not exist."
+	exit 1
+else
+	echo "Drive is empty. Mounting drive..."
+
+	# format
+	sudo mkfs -t xfs $drive_path
+
+	# create a folder in current directory and mount the nvme drive
+	sudo mkdir /data
+	sudo mount $drive_path /data
+	echo
+
+	# change owner and group
+	sudo chown ubuntu /data
+	sudo chgrp ubuntu /data
+
+	# check existence
+  echo "Checking amount of free disk space available..."
+  df -h
+fi
+
+
+
+
+

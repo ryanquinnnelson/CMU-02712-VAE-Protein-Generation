@@ -1,0 +1,83 @@
+[DEFAULT]
+run_name = PaperVAE-Run-37-1H32
+
+
+
+
+[debug]
+debug_path = /home/ubuntu/
+
+
+
+
+[pip]
+packages=--upgrade wandb==0.10.8
+
+
+
+[wandb]
+wandb_dir = /home/ubuntu/wandb
+entity = ryanquinnnelson
+project = CMU-02712-PROJECT
+notes = Protein Generation using VAE
+tags = octopus,VAE
+
+
+
+
+[stats]
+comparison_metric=val_acc
+comparison_best_is_max=True
+comparison_patience=100
+val_metric_name=val_acc
+
+
+
+
+[data]
+data_type = numerical
+data_dir = /home/ubuntu/content/data/proteins
+train_data= /home/ubuntu/content/data/proteins/encoded_protein_seq_train.npy
+val_data=/home/ubuntu/content/data/proteins/encoded_protein_seq_val.npy
+
+
+
+
+[output]
+output_dir = /home/ubuntu/output
+
+
+
+[dataloader]
+num_workers=8
+pin_memory=True
+batch_size=32
+
+
+[model]
+model_type=PaperVAE
+input_size=13684
+hidden_sizes=4096
+latent_dim=32
+batch_normalization=True
+dropout=0.5
+
+
+[checkpoint]
+checkpoint_dir = /data/checkpoints
+delete_existing_checkpoints = True
+load_from_checkpoint=False
+checkpoint_file = None
+
+
+
+[hyperparameters]
+num_proteins_to_generate = 100
+num_epochs = 200
+criterion_type=CustomLoss2
+criterion_kwargs=use_burn_in=False,delta_burn_in=0.003,burn_in_start=0
+optimizer_type=Adam
+optimizer_kwargs=lr=0.0005
+scheduler_type=ReduceLROnPlateau
+scheduler_kwargs=factor=0.5,patience=5,mode=max,verbose=True
+scheduler_plateau_metric=val_acc
