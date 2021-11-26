@@ -70,7 +70,7 @@ class Training:
                 logging.info(f'sigma.shape:{sigma.shape}')
 
             # calculate loss
-            loss = self.criterion.calculate_loss(inputs, out, mu, sigma)
+            loss = self.criterion.calculate_loss(inputs, out, mu, sigma, i)
             train_loss += loss.item()
 
             # delete mini-batch data from device
@@ -176,7 +176,7 @@ class Evaluation:
                 out, mu, sigma = model.forward(i, inputs)
 
                 # calculate loss
-                loss = self.criterion.calculate_loss(inputs, out, mu, sigma)
+                loss = self.criterion.calculate_loss(inputs, out, mu, sigma, i)
                 val_loss += loss.item()
 
                 # calculate accuracy
@@ -193,7 +193,7 @@ class Evaluation:
 
 
 def _convert_to_protein_seq(out, num_proteins_to_generate, alphabet):
-    # split single record into 622 rows of 22 columns, where each column is a possible class
+    # split single record into rows of 22 columns, where each column is a possible class
     out = out.reshape((num_proteins_to_generate, -1, 22))
 
     # convert probabilities to classes
@@ -216,7 +216,7 @@ class Generation:
     def __init__(self, num_proteins_to_generate, devicehandler):
         self.num_proteins_to_generate = num_proteins_to_generate
         self.devicehandler = devicehandler
-        self.alphabet = '$GALMFWKQESPVICYHRNDTX'  # TODO: check where X belongs in alphabet
+        self.alphabet = '$GALMFWKQESPVICYHRNDTX'
 
     def evaluate_model(self, epoch, num_epochs, model):
         logging.info(f'Running epoch {epoch}/{num_epochs} of generation...')
