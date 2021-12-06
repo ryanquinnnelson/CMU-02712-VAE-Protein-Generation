@@ -4,7 +4,7 @@ Fall 2021 Biological Modeling and Simulation - Group Project
 
 ## Summary
 The focus of this project is to take a set of protein sequences, train a generative model on the data,
-then use the generative model to produce novel sequences based on the training data.
+then use the generative model to produce novel sequences based on the training data. Two generative models are defined here: (1) Variational Autoencoder; (2) Hidden Markov Model
 
 This codebase contains multiple components.
 - `/bin`: contains scripts used with VAE training
