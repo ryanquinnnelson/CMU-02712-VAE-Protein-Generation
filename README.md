@@ -2,12 +2,27 @@
 
 Fall 2021 Biological Modeling and Simulation - Group Project
 
+## Summary
+The focus of this project is to take a set of protein sequences, train a generative model on the data,
+then use the generative model to produce novel sequences based on the training data.
+
+This codebase contains multiple components.
+- `/bin`: contains scripts used with VAE training
+- `/configs`: hyperparameter configurations for VAE training
+- `/customized`: custom code for VAE training of this dataset
+- `/data`: input and output for converting FASTA data into csv/txt format
+- `/octopus`: generalized framework code for VAE training
+- `/sample_output`: example of the logging and Weights & Biases model training for the VAE.
+- `protein_data_from_fasta.py`: Convert FASTA data into a csv/txt format.
+- `run_octopus.py`: Wrapper code to run VAE training.
+
 
 ## Requirements
 
-- `wandb` account: Running this code requires a `wandb` account.
+- `wandb` account: Running the VAE model code requires a `wandb` account.
 
-## To Run the Code
+
+## To Run the Code for VAE Model
 
 1. The code for this model consists of the following components:
     - python module `octopus`
