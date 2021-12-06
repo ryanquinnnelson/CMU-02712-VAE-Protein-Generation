@@ -4,7 +4,7 @@ Fall 2021 Biological Modeling and Simulation - Group Project
 
 ## Summary
 The focus of this project is to take a set of protein sequences, train a generative model on the data,
-then use the generative model to produce novel sequences based on the training data. Two generative models are defined here: (1) Variational Autoencoder; (2) Hidden Markov Model
+then use the generative model to produce novel sequences based on the training data. Two generative models are defined here: (1) Variational Autoencoder; (2) Hidden Markov Model.
 
 This codebase contains multiple components.
 - `/bin`: contains scripts used with VAE training
@@ -13,7 +13,7 @@ This codebase contains multiple components.
 - `/data`: input and output for converting FASTA data into csv/txt format
 - `/octopus`: generalized framework code for VAE training
 - `/sample_output`: example of the logging and Weights & Biases model training for the VAE.
-- `protein_data_from_fasta.py`: Convert FASTA data into a csv/txt format.
+- `protein_data_from_fasta.py`: Convert FASTA data into csv/txt format.
 - `run_octopus.py`: Wrapper code to run VAE training.
 
 
