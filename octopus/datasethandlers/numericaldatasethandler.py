@@ -10,6 +10,16 @@ import numpy as np
 
 class NumericalDatasetHandler:
     def __init__(self, data_dir, train_data, val_data, train_class, val_class):
+        """
+        Initialize NumericalDatasetHandler.
+
+        :param data_dir (str): fully qualified path to root directory inside which data subdirectories are placed
+        :param train_data (str): fully qualified path to training data
+        :param val_data (str): fully qualified path to validation data
+        :param train_class (Dataset): torch Dataset class to use for training data
+        :param val_class (Dataset): torch Dataset class to use for validation data
+        """
+
         logging.info('Initializing numerical dataset handler...')
 
         self.data_dir = data_dir

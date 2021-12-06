@@ -2,6 +2,126 @@
 
 Fall 2021 Biological Modeling and Simulation - Group Project
 
+
+## Requirements
+
+- `wandb` account: Running this code requires a `wandb` account.
+
+## To Run the Code
+
+1. The code for this model consists of the following components:
+    - python module `octopus`
+    - python module `customized`
+    - bash script `mount_drive`
+
+2. Activate an environment that contains torch, pandas, numpy. I used `pytorch_latest_p37`
+   environment as part of the Deep Learning AMI for AWS EC2 instances.
+
+3. Define each configuration file as desired. Configuration file options are listed below. See configuration file
+   "config_vae_prop_r31.txt" as example.
+
+4. If your instance has a mountable storage drive (i.e. `/dev/nvme1n1`), execute the bash script to mount the drive and
+   change permissions to allow the user to write to directories inside the drive.
+
+```bash
+$ mount_drive 
+```
+
+5. Execute the code using the following command from the shell to run `octopus` for each configuration file in the
+   configuration directory. Files will be processed in alphabetical order.
+
+```bash
+$ python run_octopus.py path/to/config_directory
+```
+
+
+
+
+## Configuration File Options
+
+Configurations must be parsable by `configparser`.
+
+```text
+[DEFAULT]
+run_name = PaperVAE-Run-31  # sets the name of the run in wandb, log, checkpoints, and output files 
+
+[debug]
+debug_path = /home/ubuntu/  # where log file will be saved
+
+
+
+[pip]
+packages=--upgrade wandb==0.10.8  # commands to install particular pip packages during startup
+
+[wandb]      
+wandb_dir = /home/ubuntu/                             # fully qualified directory for wandb internal files
+entity = ryanquinnnelson                              # wandb account name
+project = CMU-02712-PROJECT-Propeller-Proteins        # project to save model data under
+notes = Protein Generation using VAE                  # any notes to save with this run
+tags = CNN,octopus,VAE                                # any tags to save with this run
+
+[stats]
+comparison_metric=val_acc                 # the evaluation metric used to compare this model against previous runs 
+comparison_best_is_max=True               # whether a maximum value for the evaluation metric indicates the best performance
+comparison_patience=40                    # number of epochs current model can underperform previous runs before early stopping
+val_metric_name=val_acc                   # the name of the second metric returned from Evaluation.evalute_model() for clarity in stats
+
+[data]
+data_type = numerical                                                                               # indicates data is not image based
+data_dir = /home/ubuntu/content/data/proteins 						       # fully qualified path to root of data subdirectories
+train_data= /home/ubuntu/content/data/proteins/beta_propeller_encoded_train.npy                     # fully qualified path to training data
+val_data=/home/ubuntu/content/data/proteins/beta_propeller_encoded_val.npy                          # fully qualified path to validation data
+
+[output]
+output_dir = /home/ubuntu/output         # fully qualified directory where test output should be written
+
+
+[dataloader]
+num_workers=8        # number of workers for use in DataLoader when a GPU is available
+pin_memory=True      # whether to use pin memory in DataLoader when a GPU is available
+batch_size=256       # batch size regardless of a GPU or CPU
+
+[model]
+model_type=CnnLSTM   # type of model to initialize.
+lstm_input_size=256 # Dimension of features being input into the LSTM portion of the model.
+hidden_size=256     # Dimension of each hidden layer in the LSTM model.
+num_layers=5        # Number of LSTM layers in LSTM portion of the model.
+bidirectional=True  # True if LSTM is bidirectional. False otherwise.
+dropout=0.2         # The percent of node dropout in the LSTM model.
+lin1_output_size=42 # The number of labels in the feature dimension of the first linear layer if there are multiple linear layers.
+lin1_dropout=0.0    # The percent of node dropout in between linear layers in the model if there are multiple linear layers.
+output_size=42      # The number of labels in the feature dimension of linear layer output.
+
+
+model_type=PaperVAE   	# type of model to initialize.
+input_size=11000      	# dimension of features used as input.
+hidden_sizes=8192,256	# dimension of each of the intermediate hidden layers. At least one hidden layer is required.
+latent_dim=128		# dimension of the latent feature space.
+batch_normalization=True	# whether or not to perform batch normalization after each intermediate hidden layer in the model.
+dropout=0.4		# the percent of dropout in each of the intermediate hidden layers in the model. Use 0.0 to not use dropout.
+
+
+
+
+[checkpoint]
+checkpoint_dir = /data/checkpoints   # fully qualified directory where checkpoints will be saved
+delete_existing_checkpoints = False  # whether to delete all checkpoints in the checkpoint directory before starting model training (overridden to False if model is being loaded from a previous checkpoint)
+load_from_checkpoint=False           # whether model will be loaded from a previous checkpoint
+checkpoint_file = None               # fully qualified checkpoint file
+
+[hyperparameters]
+num_epochs = 50                                               		# number of epochs to train
+criterion_type=CustomLoss1                                    		# the loss function to use
+criterion_kwargs=use_burn_in=False,delta_burn_in=0.003,burn_in_start=0      # any arguments to be passed to the criterion function
+optimizer_type=Adam                                            		# optimizer to use
+optimizer_kwargs=lr=0.005     						# any optimizer arguments
+scheduler_type=ReduceLROnPlateau                              		# the scheduler to use
+scheduler_kwargs=factor=0.75,patience=3,mode=max,verbose=True  		# any scheduler arguments
+scheduler_plateau_metric=val_acc                              		# if using a plateau-based scheduler, the evaluation metric tracked by the scheduler 
+```
+
+
+
 ## On the differences between VAE versions
 
 I compared two versions of Variational Autoencoders:

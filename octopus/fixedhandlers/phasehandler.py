@@ -94,7 +94,7 @@ class PhaseHandler:
             val_loss, val_metric = evaluation.evaluate_model(epoch, self.num_epochs, model)
 
             # generate
-            out = generation.evaluate_model(epoch, self.num_epochs, model)
+            out = generation.generate_proteins(epoch, self.num_epochs, model)
             out = self.formatter.format_output(out)
             self.outputhandler.save(out, epoch)
 
