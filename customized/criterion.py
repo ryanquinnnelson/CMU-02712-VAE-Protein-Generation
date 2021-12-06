@@ -12,7 +12,7 @@ import torch.nn as nn
 class CustomCriterion1:
     """
     Uses Squared Error + KL divergence
-    Loss derived from https://avandekleut.github.io/vae/
+    Loss derived from https://avandekleut.github.io/vae/. See README.md for more information.
     """
 
     def __init__(self, use_burn_in, delta_burn_in, burn_in_start):
@@ -65,7 +65,7 @@ class CustomCriterion1:
 class CustomCriterion2:
     """
     Uses binary cross entropy + KL divergence
-    Loss derived from https://github.com/psipred/protein-vae/
+    Loss derived from https://github.com/psipred/protein-vae/. See README.md for more information.
     """
 
     def __init__(self, use_burn_in, delta_burn_in, burn_in_start):
