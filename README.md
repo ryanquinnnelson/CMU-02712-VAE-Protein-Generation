@@ -13,6 +13,7 @@ This codebase contains multiple components.
 - `/data`: input and output for converting FASTA data into csv/txt format
 - `/octopus`: generalized framework code for VAE training
 - `/sample_output`: example of the logging and Weights & Biases model training for the VAE.
+- `pencode_decode.py`: Encode and decode protein sequences
 - `protein_data_from_fasta.py`: Convert FASTA data into csv/txt format.
 - `run_octopus.py`: Wrapper code to run VAE training.
 
